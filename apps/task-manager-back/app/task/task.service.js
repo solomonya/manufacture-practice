@@ -1,10 +1,13 @@
 export class TaskService {
-  constructor(prismaClient) {
+  constructor(prismaClient, utils) {
     this.prismaClient = prismaClient;
+    this.utils = utils;
   }
 
-  findMany() {
+  findMany({ query }) {
+    const filters = this.utils.parseFilters(query);
     return this.prismaClient.task.findMany({
+      where: filters,
       include: {
         assignee: {
           select: {
