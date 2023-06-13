@@ -1,23 +1,17 @@
 import Fastify from 'fastify';
 import { Configs } from './config.js';
+import { servicesPlugin } from './app/services.js';
 
-const fastify = Fastify({
+const app = Fastify({
   logger: true,
 });
-
-fastify.get("/api/v1/", async (request, reply) => {
-  try {
-    reply.send({ task_manager: "api" });
-  } catch (e) {
-    reply.send(e);
-  }
-});
+app.register(servicesPlugin, { prefix: "/api/v1" });
 
 const start = async () => {
   try {
-    await fastify.listen({ port: Configs.PORT });
+    await app.listen({ port: Configs.PORT });
   } catch (err) {
-    fastify.log.error(err);
+    app.log.error(err);
     process.exit(1);
   }
 };
