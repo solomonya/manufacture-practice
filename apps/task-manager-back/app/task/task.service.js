@@ -1,27 +1,23 @@
 export class TaskService {
-  constructor(prismaClient, utils) {
+  constructor(prismaClient, utils, crud) {
     this.prismaClient = prismaClient;
     this.utils = utils;
+    this.crud = crud;
   }
 
   findMany({ query }) {
-    const filters = this.utils.parseFilters(query);
-    return this.prismaClient.task.findMany({
-      where: filters,
-      include: {
-        assignee: {
-          select: {
-            email: true,
-            username: true
-          }
-        },
-        reporter: {
-          select: {
-            email: true,
-            username: true
-          }
-        }
-      }
-    });
+    return this.crud.findMany(query);
+  }
+
+  findById(id) {
+    return this.crud.getById(parseInt(id));
+  }
+
+  create(data) {
+    return this.crud.create(data);
+  }
+
+  update(id, data) {
+    return this.crud.update(parseInt(id), data);
   }
 }
