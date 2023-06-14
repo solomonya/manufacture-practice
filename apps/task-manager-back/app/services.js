@@ -2,9 +2,13 @@ import { taskModule } from "./task/index.js";
 import { prismaPlugin } from "../lib/db/prismaPlugin.js";
 import { utilsPlugin } from "../lib/utils/utilsPlugin.js";
 import { ModelCrud } from "./crud/ModelCrud.js";
+import { sprintModule } from "./sprint/index.js";
+import { projectModule } from "./project/index.js";
 
 const modules = Object.freeze([
-  { module: taskModule, entityName: 'task' }
+  { module: taskModule, entityName: 'task' },
+  { module: sprintModule, entityName: 'sprint' },
+  { module: projectModule, entityName: 'project' }
 ]);
 
 async function servicesPlugin(fastify, _, done) {

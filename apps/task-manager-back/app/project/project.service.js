@@ -1,4 +1,4 @@
-export class TaskService {
+export class ProjectService {
   constructor(prismaClient, utils, crud) {
     this.prismaClient = prismaClient;
     this.utils = utils;
@@ -6,23 +6,7 @@ export class TaskService {
   }
 
   findMany({ query }) {
-    const meta = {
-      include: {
-        assignee: {
-          select: {
-            username: true,
-            email: true
-          }
-        },
-        reporter: {
-          select: {
-            username: true,
-            email: true
-          }
-        }
-      }
-    };
-    return this.crud.findMany(query, meta);
+    return this.crud.findMany(query);
   }
 
   findById(id) {

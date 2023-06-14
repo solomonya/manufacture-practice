@@ -20,7 +20,7 @@ export class ModelCrud {
     return this.entity.delete({ where: { id } });
   }
 
-  async findMany(query = {}) {
+  async findMany(query = {}, meta = null) {
     const { search_field, search_string, page = 1, page_size = 10, ...filterOptions } = query;
     const pageSize = Number.isNaN(parseInt(page_size)) ? 10 : parseInt(page_size);
     const parsedPage = Number.isNaN(parseInt(page)) ? 1 : parseInt(page);
@@ -32,6 +32,12 @@ export class ModelCrud {
       skip,
       take: pageSize,
     };
+
+    if (meta !== null) {
+      Object.keys(meta).forEach((key) => {
+        filter[key] = meta[key];
+      });
+    }
 
     if (search_field && search_string) {
       filter.where[search_field] = { contains: search_string };
