@@ -10,7 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.2.47"
+    "@tanstack/vue-query": "^4.29.14",
+    "vue": "^3.2.47",
+    "vue-router": "4",
+    "vuetify": "3.3.4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.1.0",
