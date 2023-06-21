@@ -2,8 +2,8 @@
   <main class="projects-page">
     <section class="projects-section">
       <h1>Your projects</h1>
-      <article v-for="task in data.tasks">
-        <h4>{{task.title}}</h4>
+      <article v-for="project in data.projects">
+        <h4>{{project.name}}</h4>
       </article>
     </section>
   </main>
@@ -29,6 +29,6 @@ import { sendRequest, QueryKeys } from '@/api';
 
 const { isLoading, isError, data, error } = useQuery({
   queryKey: [QueryKeys.TASKS],
-  queryFn: () => sendRequest({ endpoint: '/task/' })
+  queryFn: () => sendRequest({ endpoint: '/project/' })
 });
 </script>
