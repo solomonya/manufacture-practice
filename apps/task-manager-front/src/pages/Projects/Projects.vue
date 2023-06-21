@@ -1,12 +1,28 @@
 <template>
-  <main class="projects-page">
-    <section class="projects-section">
-      <h1>Your projects</h1>
-      <article v-for="project in data.projects">
-        <h4>{{project.name}}</h4>
-      </article>
-    </section>
-  </main>
+  <v-layout>
+    <v-app-bar color="primary" prominent>
+      <v-toolbar-title>Projects</v-toolbar-title>
+    </v-app-bar>
+    <main class="projects-page">
+      <section class="projects-section">
+        <v-card
+          v-for="project in data?.projects"
+          width="400"
+          :title="project.name"
+          :subtitle="project.title"
+        >
+          <template v-slot:text>
+            <router-link :to="'/projects/' + project.name">
+              <article>
+                <span>{{project.boards.length + ' boards'}}</span>
+                <v-icon end icon="fa:fas fa-solid fa-arrow-right"></v-icon>
+              </article>
+            </router-link>
+          </template>
+        </v-card>
+      </section>
+    </main>
+  </v-layout>
 </template>
 
 <style scoped>

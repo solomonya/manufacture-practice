@@ -6,7 +6,14 @@ export class ProjectService {
   }
 
   findMany({ query }) {
-    return this.crud.findMany(query);
+    const meta = {
+      include: {
+        sprints: true,
+        boards: true
+      }
+    };
+    
+    return this.crud.findMany(query, meta);
   }
 
   findById(id) {

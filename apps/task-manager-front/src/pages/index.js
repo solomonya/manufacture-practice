@@ -1,7 +1,7 @@
 import Projects from './Projects/Projects.vue';
-import Sprints from './Sprints/Sprints.vue';
+import Tasks from './Tasks/Tasks.vue';
 
 export {
   Projects,
-  Sprints
+  Tasks
 };

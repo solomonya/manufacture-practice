@@ -10,6 +10,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Board {
+  id          Int    @id @default(autoincrement())
+  name        String
+  projectName String
+
+  project Project @relation(fields: [projectName], references: [name])
+  tasks   Task[]
+}
+
 model Task {
   id          Int      @id @default(autoincrement())
   title       String
@@ -21,10 +30,12 @@ model Task {
   assigneeId Int
   reporterId Int
   sprintId   Int
+  boardId    Int?
 
   assignee User   @relation("asignee", fields: [assigneeId], references: [id])
   reporter User   @relation("reporter", fields: [reporterId], references: [id])
   sprint   Sprint @relation(fields: [sprintId], references: [id])
+  board    Board? @relation(fields: [boardId], references: [id])
 }
 
 model Sprint {
@@ -42,8 +53,10 @@ model Sprint {
 
 model Project {
   name    String   @id
+  title   String   @default("Project")
   users   User[]
   sprints Sprint[]
+  boards  Board[]
 }
 
 model User {
