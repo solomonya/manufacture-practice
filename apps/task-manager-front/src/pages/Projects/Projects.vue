@@ -2,6 +2,9 @@
   <main class="projects-page">
     <section class="projects-section">
       <h1>Your projects</h1>
+      <article v-for="task in data.tasks">
+        <h4>{{task.title}}</h4>
+      </article>
     </section>
   </main>
 </template>
@@ -22,12 +25,10 @@
 
 <script setup>
 import { useQuery } from '@tanstack/vue-query';
+import { sendRequest, QueryKeys } from '@/api';
 
 const { isLoading, isError, data, error } = useQuery({
-  queryKey: ['todos'],
-  queryFn: async () => {
-    const response = await fetch("http://localhost:3005/api/v1/task/");
-    return await response.json();
-  },
+  queryKey: [QueryKeys.TASKS],
+  queryFn: () => sendRequest({ endpoint: '/task/' })
 });
 </script>
